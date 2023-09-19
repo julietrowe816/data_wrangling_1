@@ -5,6 +5,8 @@ output: github_document
 
 ```{r}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 
 
@@ -105,7 +107,27 @@ litters_df =
     "data/FAS_litters.csv",
     col_types=
       cols(
-        Group = col_factor
+        `GD0 weight` = col_factor()
       ))
 ```
+
+
+## Other file types
+
+Import a xlsx file first.
+
+```{r}
+mlb_df =
+  read_excel("data/mlb11.xlsx")
+```
+
+Import a SAS file.
+
+```{r}
+pulse_df =
+  read_sas("data/public_pulse_data.sas7bdat")
+
+view(pulse_df)
+```
+
 
