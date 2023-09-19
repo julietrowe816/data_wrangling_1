@@ -130,4 +130,25 @@ pulse_df =
 view(pulse_df)
 ```
 
+## Base R ...
+
+```{r}
+litters_df = 
+  read.csv("data/FAS_litters.csv")
+```
+As a general rule, always use read_csv, NOT read.csv
+
+
+## Export data
+
+We have code that "cleans" data and need to export the result
+
+```{r}
+litters_df_cleaned =
+  read_csv("data/FAS_litters.csv")
+
+litters_df_cleaned =
+  janitor::clean_names(litters_df_cleaned)
+```
+
 
