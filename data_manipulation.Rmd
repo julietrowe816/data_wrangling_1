@@ -5,26 +5,81 @@ date: "2023-09-21"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library(tidyverse)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Import FAS litters and pups
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+litters_df=
+  read_csv("data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
 
-```{r cars}
-summary(cars)
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+
+pups_df = janitor::clean_names(pups_df)
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+##select
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+`select` is used to select columns!
+
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, gd0_weight, group)
+
+select(litters_df, group, gd0_weight:gd_of_birth)
+
+select(litters_df, group, starts_with("pups"))
+
+select(litters_df, -litter_number)
+
+select(litters_df, -starts_with("gd"))
+
+select(litters_df, group, litter_number)
+
+select(litters_df, group, litter_id = litter_number, everything())
+
+select(litters_df, gd0_weight, everything())
+
+select(pups_df, litter_number, sex, pd_ears)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+rename(litters_df, litter_id=litter_number)
+
+relocate(litters_df, litter_number)
+```
+
+
+`select` vs `pull`
+
+```{r}
+select(litters_df, group)
+pull(litters_df, group)
+```
+
+## `filter`
+
+get rid of rows using `filter()`
+
+```{r}
+filter(litters_df, group=="Con7")
+
+filter(litters_df, group=="Mod8")
+
+filter(litters_df, group !="Con7")
+
+filter(litters_df, gd0_weight > 20)
+
+filter(litters_df, gd0_weight <= 20)
+
+filter(litters_df, group == "Con7" | group == "Con8")
+```
+
