@@ -1,0 +1,18 @@
+---
+title: "TidyData"
+author: "Juliet Rowe"
+date: "2023-09-26"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+## PULSE data
+
+```{r}
+pulse_df=
+  haven::read_sas("data")
+```
+
